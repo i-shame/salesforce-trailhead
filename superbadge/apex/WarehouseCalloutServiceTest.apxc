@@ -1,0 +1,11 @@
+@isTest
+private class WarehouseCalloutServiceTest {
+
+    @isTest static void testPostCallout() {
+        Test.startTest();
+        // implement your mock callout test here
+        Test.setMock(HttpCalloutMock.class, new WarehouseCalloutServiceMock());
+        WarehouseCalloutService.runWarehouseEquipmentSync();
+        Test.stopTest();
+    }
+}

@@ -1,0 +1,33 @@
+@isTest
+public class TestDataFactory {
+
+    public static List<Case> createMaintanceRequest(Integer reqNum, String reqType) {
+        List<Case> mantnceReqs = new List<Case>();
+        Vehicle__c smplVhcl = getSampleVehicle();
+        Product2 smplEqup = getSampleEquipment();
+        for(Integer i=0; i<reqNum; i++){
+            Case mantnceReq = new Case();
+            mantnceReq.Subject = 'Test Maintance Request Number ' + i;
+            mantnceReq.Origin = 'Web';
+            mantnceReq.Vehicle__c = smplVhcl.Id;
+            mantnceReq.Equipment__c = smplEqup.Id;
+            mantnceReq.Type = reqType;
+            mantnceReq.Status = 'New';
+            mantnceReqs.add(mantnceReq);
+        }
+        return mantnceReqs;
+    }
+
+    private static Vehicle__c getSampleVehicle(){
+        Vehicle__c result = new Vehicle__c(Name = 'Test Vehicle');
+        INSERT result;
+        return result;
+    }
+
+    private static Product2 getSampleEquipment(){
+        Product2 result = new Product2(Name = 'Test Equipment',
+                Maintenance_Cycle__c = (Math.random() * 100).intValue());
+        INSERT result;
+        return result;
+    }
+}
